@@ -8,7 +8,7 @@ def count_islands(world, x, y):
         for i in range(0, w):
             if world[j][i] != 0:
                 count += 1
-            mark_world(world, i, j, touched)
+                mark_world(world, i, j, touched)
 
     return count
 
@@ -61,3 +61,12 @@ def test_2():
         [1, 1, 1, 0, 0, 1, 1, 0],
     ]
     assert count_islands(world, 0, 0) == 5
+
+
+def test_3():
+    world = [
+        [0, 0, 0, 0],
+        [1, 0, 0, 0],
+        [0, 0, 0, 1],
+    ]
+    assert count_islands(world, 0, 0) == 2
