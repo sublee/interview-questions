@@ -3,27 +3,35 @@ def count_islands(world, x, y):
     w = len(world[0])
 
     count = 0
+    touched = set()
     for j in range(0, h):
         for i in range(0, w):
             if world[j][i] != 0:
                 count += 1
-            mark_world(world, i, j)
+            mark_world(world, i, j, touched)
 
     return count
 
 
-def mark_world(world, x, y):
+def mark_world(world, x, y, touched):
     queue = []
-    queue.append((x, y))
+
+    def enqueue(x, y):
+        if (x, y) in touched:
+            return
+        queue.append((x, y))
+        touched.add((x, y))
+
+    enqueue(x, y)
     while queue:
         i, j = queue.pop(0)
         if in_boundary(world, i, j):
             if world[j][i] != 0:
                 world[j][i] = 0
-                queue.append((i - 1, j))
-                queue.append((i + 1, j))
-                queue.append((i, j - 1))
-                queue.append((i, j + 1))
+                enqueue(i - 1, j)
+                enqueue(i + 1, j)
+                enqueue(i, j - 1)
+                enqueue(i, j + 1)
 
 
 def in_boundary(world, x, y):
