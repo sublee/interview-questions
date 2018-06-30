@@ -17,6 +17,8 @@ def mark_world(world, x, y, touched):
     queue = []
 
     def enqueue(x, y):
+        if not in_boundary(world, x, y):
+            return
         if (x, y) in touched:
             return
         queue.append((x, y))
@@ -25,13 +27,12 @@ def mark_world(world, x, y, touched):
     enqueue(x, y)
     while queue:
         i, j = queue.pop(0)
-        if in_boundary(world, i, j):
-            if world[j][i] != 0:
-                world[j][i] = 0
-                enqueue(i - 1, j)
-                enqueue(i + 1, j)
-                enqueue(i, j - 1)
-                enqueue(i, j + 1)
+        if world[j][i] != 0:
+            world[j][i] = 0
+            enqueue(i - 1, j)
+            enqueue(i + 1, j)
+            enqueue(i, j - 1)
+            enqueue(i, j + 1)
 
 
 def in_boundary(world, x, y):
